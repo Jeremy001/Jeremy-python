@@ -14,7 +14,7 @@ if a >= 0:
     print(a)
 else:
     print(-a)
-print(0x0001)	
+print(0x0001)
 print("I'm ok!")
 # 转义字符/
 print('I\'m ok!')
@@ -33,7 +33,7 @@ line3''')
 age = 19
 if age >= 18:
     print('adult')
-else:    
+else:
     print('teenager')
 # =:赋值符号，同一个变量可以多次赋值，而且每次赋值的数据类型可以不同
 # 因此：python是动态语言；而java则不可以，所以java是静态语言
