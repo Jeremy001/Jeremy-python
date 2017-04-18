@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-r'''
+'''
 learning.py
 
 A Python 3 tutorial from http://www.liaoxuefeng.com
