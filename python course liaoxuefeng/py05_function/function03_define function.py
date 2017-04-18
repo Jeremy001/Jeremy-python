@@ -75,16 +75,13 @@ def quadratic(a, b, c):
             if c == 0:
                 print('x为任意值')
             else:
-                x = '此方程无解'
-                return x
+                print('此方程无解')
         else:
-            x = -c/b
-            return x
+            return print('x = ', -c/b)
     else:
         deta = b * b - 4 * a * c
         if deta < 0:
-            x = '无实数解'
-            return x
+           print('此方程无实数解')
         else:
             x1 = (math.sqrt(deta) - b) / (2 * a)
             x2 = -(math.sqrt(deta) + b) / (2 * a)
