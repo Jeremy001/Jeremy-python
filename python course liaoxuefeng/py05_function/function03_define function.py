@@ -4,7 +4,7 @@
 # 在python中定义函数的方法：
 # def 函数名(参数1, 参数2):
 #       函数体
-#       return
+#       return 返回值
 # 函数的返回值用return
 def my_abs(x):
     if x >= 0:
@@ -15,7 +15,7 @@ my_abs(9)
 my_abs(-6)
 
 # 导入函数的方法
-# 把my_abs()函数定义保存你为abstest.py文件，则可以通过from abstest imort my_abs来导入my_abs()函数
+# 把my_abs()函数定义保存为abstest.py文件，则可以通过from abstest imort my_abs来导入my_abs()函数
 from abstest import my_abs
 my_abs(9)
 my_abs(-6)
@@ -31,10 +31,10 @@ def adult(age):
 
 # 参数检查
 # 调用函数时，如果参数个数不对，会报错提示：
-# my_abs(1, 2, 3)
+ my_abs(1, 2, 3)
 # 但参数数据类型不符合要求，我们定义的my_abs就有问题:
-# my_abs('9')
-# abs('9')
+ my_abs('9')
+ abs('9')
 # 内置函数abs报错提示错误原因，而我们定义的函数my_abs()不会提示错误原因
 # 我们修改一下函数的定义，先判断一下参数的数据类型，用isinstance()
 def my_abs(x):
@@ -44,7 +44,7 @@ def my_abs(x):
         return x
     else:
         return -x
-# my_abs('9')
+ my_abs('9')
 
 
 # 返回多个值
