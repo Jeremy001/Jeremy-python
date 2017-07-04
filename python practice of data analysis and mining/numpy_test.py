@@ -108,3 +108,30 @@ print(np.split(np.hstack((lst1, lst2)), 2))
 
 # 数组复制
 print(np.copy(lst1))
+
+
+# 矩阵
+from numpy.linalg import *
+
+# 单位矩阵
+print(np.eye(3))
+# 矩阵
+lst = np.array([[1, 2],
+               [3, 4]])
+print(lst)
+# 矩阵的逆
+print(inv(lst))
+# 矩阵转置
+print(lst.transpose())
+# 行列式 1 * 4 - 2 * 3 = -2
+print(det(lst))
+# 特征值和特征向量
+print(eig(lst))
+# 结果是两个元组，第一个元组是特征值，第二个元组是特征向量
+
+# 求解方程组
+y = np.array([[5.], [7.]])
+print(solve(lst, y))
+# 1*x1 + 2*x2 = 5
+# 3*x1 + 4*x2 = 7
+# x1 = -3; x2 = 4
