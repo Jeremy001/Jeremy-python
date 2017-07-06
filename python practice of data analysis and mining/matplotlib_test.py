@@ -9,7 +9,11 @@ c,s = np.cos(x),np.sin(x)
 plt.figure(1)
 plt.plot(x, c)
 plt.plot(x, s)
+plt.title('this is title')
 plt.show()
+
+
+
 
 
 
