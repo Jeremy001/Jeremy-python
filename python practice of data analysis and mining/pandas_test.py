@@ -65,7 +65,7 @@ print(df.at[dates[0], 'C'])
 
 # 根据下标进行切片
 # iloc[n1:n2, n3:n4]
-# 从0开始，0表示第一个记录，不包括最后一个 
+# 从0开始，0表示第一个记录，不包括最后一个
 # DataFrame
 print(df.iloc[1:3, 2:4])
 # 数据点
@@ -99,22 +99,70 @@ df2[df2>0] = -df2
 print(df2)
 
 
+# 缺失值处理
+# 准备数据
+df1 = df.reindex(index = dates[:4], columns = list("ABCD")+["G"])
+df1.loc[dates[0]:dates[1], "G"] = 1
+print(df1)
+# 缺失值处理方法1：直接丢弃
+print(df1.dropna())
+# 缺失值处理方法2：插值
+# 插值方法1：固定值
+print(df1.fillna(value = 2))
+# 插值方法2：按一定规则插值
 
 
+# 统计statistic
+print(df.mean())
+print(df.var())
+s = pd.Series([1, 2, 4, np.nan, 5, 7, 9, 10], index = dates)
+print(s)
+# 把数据序列往后移2个位置
+print(s.shift(2))
+# 计算环比差异，可以设置阶数，即当前记录与前几个记录的值进行比较
+print(s.diff())
+print(s.diff(2))
+# 计算各个value出现的次数
+print(s.value_counts())
+# 应用函数
+print(df.apply(np.cumsum))
+print(df.apply(lambda x:x.max() - x.min()))
 
 
+# 拼接DataFrame，类似数据库的union
+pieces = [df[:3], df[-3:]]
+print(pd.concat(pieces))
+
+# merge DataFrame，类似数据库的join
+left = pd.DataFrame({"key":["x", "y"],
+                    "value":[1, 2]})
+right = pd.DataFrame({"key":["z", "y"],
+                    "value":[4, 3]})
+print("LEFT:", left)
+print("RIGHT:", right)
+print(pd.merge(left, right, on = "key", how = "left"))
+print(pd.merge(left, right, on = "key", how = "right"))
+print(pd.merge(left, right, on = "key", how = "inner"))
+print(pd.merge(left, right, on = "key", how = "outer"))
 
 
+# groupby
+df3 = pd.DataFrame({"A":["a", "b", "c", "b"],
+                   "B":list(range(4))})
+print(df3.groupby("A").sum())
 
 
-
-
-
-
-
-
-
-
+# reshape
+import datetime
+df4 = pd.DataFrame({"A":["one", "one", "two", "three"] * 6,
+                   "B":["a", "b", "c"] * 8,
+                   "C":["foo", "foo", "foo", "bar", "bar", "bar"] * 4,
+                   "D":np.random.randn(24),
+                   "E":np.random.randn(24),
+                   "F":[datetime.datetime(2017, i, 1) for i in range(1, 13)] +
+                   [datetime.datetime(2017, i, 15) for i in range(1, 13)]})
+# 透视表
+print(pd.pivot_table(df4, values = "D", index = "A", columns = "C"))
 
 
 
