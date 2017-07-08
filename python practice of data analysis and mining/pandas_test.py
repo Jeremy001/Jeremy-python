@@ -165,4 +165,28 @@ df4 = pd.DataFrame({"A":["one", "one", "two", "three"] * 6,
 print(pd.pivot_table(df4, values = "D", index = "A", columns = "C"))
 
 
+# Time Series
+# 创建时间序列，20个时间点，间隔为秒
+t_exam1 = pd.date_range("20170301", periods = 20, freq = "S")
+# 间隔为月
+t_exam2 = pd.date_range("20170301", periods = 20, freq = "M")
+print(t_exam1, t_exam2)
 
+
+# Graph
+ts = pd.Series(np.random.randn(1000), index = pd.date_range("2000-01-01", periods = 1000))
+ts = ts.cumsum()
+from pylab import *
+ts.plot()
+show()
+
+
+# 文件操作
+
+# 读入文件
+df6 = pd.read_csv("./data/df.csv")
+df7 = pd.read_excel("./data/df.xlsx", "sheet1")
+
+# 写出文件
+df.to_csv("./data/df.csv")
+df.to_excel("./data/df.xlsx")
