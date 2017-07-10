@@ -10,30 +10,37 @@ scores = [90, 84, 65]
 # 如果list很长，那么这样的查询消耗的时间就比较长
 # 而用dict则可实现name-score的对照，查询的效率会大大提高，dict的查找就像查字典一样
 d = {'Micheal' : 95, 'Jeremy' : 100, 'Sarah' : 88}
-d['Micheal']    # 95
+print(d)
+print(d['Micheal'])    # 95
 
 # 往dict中添加数据
 d['Adam'] = 67
-d['Adam']
+print(d)
+print(d['Adam'])
+
 # 如果往同一个key中多次放入数据，那么保留的是最后一次放入的数据
 d['Jack'] = 99
+print(d)
 d['Jack']   # 99
 d['Jack'] = 69
+print(d)
 d['Jack']   # 69
 
 # key不存在的问题
 # 查询的时候，key如果不存在，会报错
-d['Thomas']    # 报错 KeyError:"Thomas"
+# d['Thomas']    # 报错 KeyError:"Thomas"
+
 # 要避免Key不存在的错误，有下面有个方法：
 # 1.先用in判断key是否存在，然后分别处理
 'Thomas' in d   # false
 # 2.通过dict的get方法，如果key不存在，可以返回none，或者自己指定的value
 d.get('Thomas')    # 返回none，只是python并没有显示
 d.get('Thomas', -1)    # 返回-1
+print(d.get('Jack', '-1'))  # 如果存在，返回对应的值，不存在则返回指定的值
 
 # 删除key和对应的值
 d.pop('Adam')   # 显示对应删除的值67
-d    # 删除了Adam
+print(d)    # 删除了Adam
 
 # dict的特点是：
 # 1. 插入和查询的速度极快，不会随着key的增加而变慢
@@ -45,6 +52,10 @@ d    # 删除了Adam
 
 # dict可以用在很多需要高速查询的地方，key必须时候不可变对象
 # 字符串、整数等都是不可变的，可以作为key，而list是可变的，不能作为key
+# 但是对value没有要求：
+d2 = {'key1':[1, 0, 0], 'key2':[0, 1, 0], 'key3':[0, 0, 1]}
+print('d2:', d2)
+print(d2['key1'])
 
 
 # set
@@ -73,7 +84,7 @@ s1 & s2    # 2, 3 交集
 s1 | s2    # 1, 2, 3, 4 并集
 
 # set和dict的唯一差别就是没存储value，所以性质相同，不能存储可变对象
-s = set(['Jeremy', [100, 45, 90, 78]])    # 报错：TypeErro:Unhashable type:'list'
+# s = set(['Jeremy', [100, 45, 90, 78]])    # 报错：TypeErro:Unhashable type:'list'
 
 # 不可变对象
 # 对可变对象进行操作，对象会随之改变

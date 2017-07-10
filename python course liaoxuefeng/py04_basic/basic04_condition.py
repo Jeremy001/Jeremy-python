@@ -7,7 +7,7 @@ if age >= 18:   # 注意这里有个冒号！！！
     print('Your age is:', age)
     print('Adult')
 
-# if else:如果条件为true，则干abcd，否则干1234
+# if else:如果条件为true，则%#￥@，否则%#￥@
 age = 3
 if age >= 18:
     print('Your age is:', age)
@@ -27,6 +27,10 @@ elif age >= 6:
 else:
     print('Your age is:', age)
     print('kid')
+
+# 条件是有顺序的，python程序从第一个条件开始依次往下判断，满足条件则执行相应操作，并不再继续判断；
+# 因此写条件语句时，注意不同条件之前的顺序；
+
 
 # if条件可以简写：
 x = 1
