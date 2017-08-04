@@ -71,9 +71,27 @@ plt.show()
 
 
 
+# regularization ===========================================
+# 过拟合(overfitting)是机器学习中很常见的问题，指的是一个模型在训练集上表现很好但是泛化能力巨差(在测试集上的表现糟糕)。如果一个模型饱受过拟合困扰，我们也说此模型方差过高，造成这个结果的原因可能是模型含有太多参数导致模型过于复杂。
+# 同样，模型也可能遇到欠拟合(underfitting)问题，我们也说此模型偏差过高，原因是模型过于简单不能学习到训练集中数据存在的模式，同样对于测试集表现很差
+# 正则化是解决特征共线性、过滤数据中噪音和防止过拟合的有用方法
 
+weights, params = [], []
+for c in np.arange(-5, 5):
+    lr = LogisticRegression(C = 10**c, random_state = 0)
+    lr.fit(X_train_std, y_train)
+    weights.append(lr.coef_[1])
+    params.append(10**c)
 
+weights = np.array(weights)
 
+plt.plot(params, weights[:, 0], label = 'petal length')
+plt.plot(params, weights[:, 1], linestyle = '--', label = 'petal width')
+plt.ylabel('weight coefficient')
+plt.xlabel('C')
+plt.legend(loc = 'upper left')
+plt.xscale('log')
+plt.show()
 
 
 
