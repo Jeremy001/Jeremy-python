@@ -1,26 +1,25 @@
-# -*- coding: utf-8 -*-
+# encoding = utf-8
 
-# load packages =======================================
-from sklearn.ensemble import RandomForestClassifier
+# load packages ====================================
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn import datasets
+import matplotlib.pyplot as plt
 
-# load dataset =========================================
+# load dataset ======================================
 iris = datasets.load_iris()
 X = iris.data[:, [2, 3]]
 y = iris.target
-
-# data pre-processing ====================================
 # split data into train and test datasets
 from sklearn.cross_validation import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 0)
 
-# modeling ============================================
-# 训练一个含有10颗树的随机森林，使用熵作为分割节点时的度量
-forest = RandomForestClassifier(criterion = 'entropy', n_estimators = 10, random_state = 1, n_jobs = 2)
-forest.fit(X_train, y_train)
+
+# modeling ========================================
+from sklearn.tree import DecisionTreeClassifier
+# 使用熵作为度量，训练一颗最大深度为3的决策树
+tree = DecisionTreeClassifier(criterion = 'entropy', max_depth = 3, random_state = 0)
+tree.fit(X_train, y_train)
 
 
 # define plot_decision_region function ====================
@@ -46,14 +45,14 @@ def plot_decision_region(X, y, classifier, resolution = 0.02):
                             alpha = 0.8, c = cmap(idx),
                             marker = markers[idx], label = cl)
 
-
-# plot ================================================
-plot_decision_region(X_train, y_train, classifier = forest)
-plt.xlabel('Petal_length')
-plt.ylabel('Petal_width')
-plt.legend(loc = 'upper left')
+# plot ============================================
+plot_decision_region(X_train, y_train, classifier = tree)
+plt.legend()
 plt.show()
 
+# 把模型输出保存为.dot文件 ==========================
+from sklearn.tree import export_graphviz
+export_graphviz(tree, out_file = 'tree.dot', feature_names = ['petal Length', 'petal Width'])
 
 
 

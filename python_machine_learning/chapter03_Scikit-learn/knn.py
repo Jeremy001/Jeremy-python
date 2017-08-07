@@ -1,27 +1,32 @@
-# -*- coding: utf-8 -*-
+# encoding = utf-8
 
-# load packages =======================================
-from sklearn.ensemble import RandomForestClassifier
-import numpy as np
-import pandas as pd
+# load packages ====================================
 import matplotlib.pyplot as plt
+import numpy as np
 from sklearn import datasets
 
-# load dataset =========================================
+# load dataset ======================================
 iris = datasets.load_iris()
 X = iris.data[:, [2, 3]]
 y = iris.target
 
-# data pre-processing ====================================
-# split data into train and test datasets
+# data pre-processing =================================
+# 1.split data into train and test datasets
 from sklearn.cross_validation import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 0)
 
-# modeling ============================================
-# 训练一个含有10颗树的随机森林，使用熵作为分割节点时的度量
-forest = RandomForestClassifier(criterion = 'entropy', n_estimators = 10, random_state = 1, n_jobs = 2)
-forest.fit(X_train, y_train)
+# 2.standardization
+from sklearn.preprocessing import StandardScaler
+sc = StandardScaler()
+sc.fit(X_train)
+X_train_std = sc.transform(X_train)
+X_test_std = sc.transform(X_test)
 
+# modeling =========================================
+from sklearn.neighbors import KNeighborsClassifier
+# 设置k=5，得到相对平滑的决策界，k的选择对于KNN模型来说至关重要，距离度量也是很有用的。
+knn = KNeighborsClassifier(n_neighbors = 5, p = 2, metric = 'minkowski')
+knn.fit(X_train_std, y_train)
 
 # define plot_decision_region function ====================
 from matplotlib.colors import ListedColormap
@@ -47,12 +52,36 @@ def plot_decision_region(X, y, classifier, resolution = 0.02):
                             marker = markers[idx], label = cl)
 
 
-# plot ================================================
-plot_decision_region(X_train, y_train, classifier = forest)
-plt.xlabel('Petal_length')
-plt.ylabel('Petal_width')
-plt.legend(loc = 'upper left')
+# plot =============================================
+plot_decision_region(X_train_std, y_train, classifier = knn)
 plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
