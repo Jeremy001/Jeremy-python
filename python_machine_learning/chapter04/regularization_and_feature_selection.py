@@ -76,7 +76,70 @@ for column, color in zip(range(weights.shape[1]), colors):
     plt.plot(params, weights[:, column], label = df_wine.columns[column + 1], color = color)
 
 plt.axhline(0, color = 'black', linestyle = '--', linewidth = 3)
+plt.xlim([10 ** (-5), 10 ** 5])
+plt.ylabel('weight coefficient')
+plt.xlabel('C')
+plt.xscale('log')
+plt.legend(loc = 'upper left')
+ax.legend(loc = 'upper center', bbox_to_anchor = (1.38, 1.03), ncol = 1, fancybox = True)
 plt.show()
+# 发现当C很小时，正则项的威力很大
+
+
+# dimensionality reduction ============================
+# 通过特征选择进行维度降低(dimensionality reduction)，维度降低有两种做法：特征选择(feature selection)和特征抽取(feature extraction)
+# 特征选择会从原始特征集中选择一个子集合。特征抽取是从原始特征空间抽取信息，从而构建一个新的特征子空间
+
+# SBS算法
+# 一个经典的序列特征选择算法是序列后向选择(sequential backward selection, SBS),它能够降低原始特征维度提高计算效率，在某些情况下，如果模型过拟合，使用SBS后甚至能提高模型的预测能力
+# python定义SBS算法
+from sklearn.base import clone
+from itertools import combinations
+import numpy as np
+from sklearn.cross_validation import train_test_split
+from sklearn.metrics import accuracy_score
+
+class SBS():
+    def _init__(self, estimator, k_features, scoring = accuracy_score, test_size = 0.25, random_state = 1):
+        self.scoring = scoring
+        self.estimator = clone(estimator)
+        self.k_features = k_features
+        self.test_size = test_size
+        self.random_state = random_state
+
+    def fit(self, X, y):
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = self.test_size, 
+            random_state = self.random_state)
+        dim = X_train.shape[1]
+        self.indices = tuple(range(dim))
+        self.subsets = [self.indices_]
+        score = self._calc_score(X_train, y_train, X_test, y_test, self.indices_)
+        self.scores_ = [score]
+
+        while dim > self.k_features:
+            scores = []
+            subsets = []
+
+            for p in combinations(self.indices_, r = dim - 1):
+                score = self._calc_score(X_train, y_train, X_test, y_test, p)
+                scores.append(score)
+                subsets.append(p)
+
+            best = np.argmax(scores)
+            self.indices_ = subsets[best]
+            self.subsets_.append(self.indices_)
+            dim -= 1
+            self.scores_.append(scores[best])
+        self.k_score_ = self.scores_[-1]
+
+        return self
+    def transform(self, X):
+        return X[:, self.indices_]
+    def _calc_score(self, X_train, y_train, X_test, y_test, indices):
+        self.estimator.fit(X_train[:, indices], y_train)
+        y_pred = self.estimator.predict(X_test[:, indices])
+        score = self.scoring(y_test, y_pred)
+        return score
 
 
 
