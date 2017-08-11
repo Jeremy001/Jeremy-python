@@ -141,9 +141,23 @@ class SBS():
         score = self.scoring(y_test, y_pred)
         return score
 
+# k_features参数:设定想要得到的特征子集数
+# accuracy_score:评估模型在特征子集的表现
 
 
+# 用KNN作为Estimator来运行SBS算法
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors = 2)
+sbs = SBS(knn, k_features = 1)
+sbs.fit(X_train_std, y_train)
 
-
+# SBS算法记录了每一步最优特征子集的成绩，我们画出每个最优特征子集在验证集上的分类准确率：
+k_feat = [len(k) for k in sbs.subsets_]
+plt.plot(k_feat, sbs_scores_, marker = 'o')
+plt.ylim([0.7, 1.1])
+plt.ylabel('Accracy')
+plt.xlabel("Number of features")
+plt.grid()
+plt.show()
 
 
