@@ -29,7 +29,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, rando
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
-from sklearn.model_selection import learning_curve
+from sklearn.learning_curve import learning_curve
 
 pipe_lr = Pipeline([('scl', StandardScaler()),
                               ('clf', LogisticRegression(penalty = '12', random_state = 0))])
@@ -38,7 +38,8 @@ train_sizes, train_scores, test_scores = learning_curve(estimator = pipe_lr,
                                                                                         X = X_train,
                                                                                         y = y_train,
                                                                                         train_sizes = np.linspace(0.1, 1.0, 10),
-                                                                                        cv = 10)
+                                                                                        cv = 10, 
+                                                                                        n_jobs = 1)
 train_mean = np.mean(train_scores, axis = 1)
 train_std = np.std(train_scores, axis = 1)
 test_mean = np.mean(test_scores, axis = 1)
