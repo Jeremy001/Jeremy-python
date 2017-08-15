@@ -11,7 +11,7 @@ import pandas as pd
 
 # 1.1 data is ndarray
 s = pd.Series(np.random.randn(5), 
-                        index = ['a', 'b', 'c', 'd', 'e'])
+    index = ['a', 'b', 'c', 'd', 'e'])
 print(s)
 print(s.index)
 s2 = pd.Series(np.random.randn(5))
@@ -34,7 +34,7 @@ print(s)
 # slicing
 # 1. ndarray
 s = pd.Series(np.random.randn(5), 
-                        index = ['a', 'b', 'c', 'd', 'e'])
+    index = ['a', 'b', 'c', 'd', 'e'])
 print(s)
 print(s[0])
 print(s[:3])
@@ -52,10 +52,25 @@ print(s.get('f'))
 print(s.get('e'))
 print(s.get('f', np.nan))
 
+# Vectorized operations
+print(s + s)
+print(s * s)
+print(np.exp(s))
+# Series的运算默认情况下是根据index来匹配，匹配上的就进行运算，匹配不上就是NaN
+print(s[1:])
+print(s[:-1])
+print(s[1:] + s[:-1])
 
+# Name
+s = pd.Series(np.random.randn(5), 
+    name = 'something')
+print(s)
+print(s.name)
+s2 = s.rename('different')
+print(s2)
+print(s2.name)
 
-
-# dict ====================================================
+# DataFrame ====================================================
 
 
 
