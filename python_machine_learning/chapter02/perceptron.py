@@ -2,6 +2,8 @@
 
 import numpy as np
 
+# 编写Perceptron类 ============================================
+
 class Perceptron(object):
     """Perceptron classifier.
 
@@ -69,31 +71,36 @@ import pandas as pd
 # load dataset ====================================================
 df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header = None)
 
-
 # data pre-processing ==============================================
+# 取前100个样本，形成二分类数据集
+# 前100个label
 y = df.iloc[0:100, 4].values
+# 正负类转换，iris-setosa = 1, iris-versicolor = -1
 y = np.where(y == 'Iris-setosa', -1, 1)
+# 特征矩阵，取sepal.length和patal.length
 X = df.iloc[0:100, [0, 2]].values
 
 # plot ==========================================================
-# plt.scatter(X[:50, 0], X[:50, 1], color = 'red', marker = 'o', label = 'setosa')
-# plt.scatter(X[50:100, 0], X[50:100, 1], color = 'blue', marker = 'x', label = 'versicolor')
-# plt.xlabel('petal_length')
-# plt.ylabel('sepal_length')
-# plt.legend(loc = 'upper left')
-# plt.show()
+plt.scatter(X[:50, 0], X[:50, 1], color = 'red', marker = 'o', label = 'setosa')
+plt.scatter(X[50:100, 0], X[50:100, 1], color = 'blue', marker = 'x', label = 'versicolor')
+plt.xlabel('petal_length')
+plt.ylabel('sepal_length')
+plt.legend(loc = 'upper left')
+plt.show()
 
 
 # modeling ======================================================
 ppn = Perceptron(eta = 0.1, n_iter = 10)
 ppn.fit(X, y)
 
-# plt.plot(range(1, len(ppn.errors_) + 1), ppn.errors_, marker = 'o')
-# plt.xlabel('Epoches')
-# plt.ylabel('Numebr of misclassifications')
-# plt.show()
+# plot number of misclassification and n_iter
+plt.plot(range(1, len(ppn.errors_) + 1), ppn.errors_, marker = 'o')
+plt.xlabel('Epoches')
+plt.ylabel('Numebr of misclassifications')
+plt.show()
 # 从结果中看到，当第六次迭代时，算法就收敛了，且对训练集的分类准确率是100%
 
+# 定义一个函数，用来绘制分类边界 ===================================
 from matplotlib.colors import ListedColormap
 
 def plot_decision_region(X, y, classifier, resolution = 0.02):
@@ -120,14 +127,10 @@ def plot_decision_region(X, y, classifier, resolution = 0.02):
                             alpha = 0.8, c = cmap(idx),
                             marker = markers[idx], label = cl)
 
+# plot boundary of ppn classification =====================================
 plot_decision_region(X, y, classifier = ppn)
 plt.xlabel('sepal length(cm)')
 plt.ylabel('petal.length(cm)')
 plt.legend(loc = 'upper left')
 plt.show()
-
-
-
-
-
 
