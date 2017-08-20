@@ -44,14 +44,15 @@ print(csv_data.dropna(how = 'all'))
 csv_data.dropna(thresh = 4)
 print(csv_data.dropna(thresh = 4))
 
-# 5.丢弃制定列含有缺失值的样本行
+# 5.丢弃指定列含有缺失值的样本行
 csv_data.dropna(subset = ['C'])
 print(csv_data.dropna(subset = ['C']))
 
 # 缺失值插补 =======================================
-# 1.用变量的平均值插补
+# 用变量的平均值插补
 from sklearn.preprocessing import Imputer
 imr = Imputer(missing_values = "NaN", strategy = 'mean', axis = 0)
+# 参数strategy的其他取值包括median和most_frequent。most_frequent对于处理分类数据类型的缺失值很有用。
 imr = imr.fit(csv_data)
 
 imputed_data = imr.transform(csv_data.values)
