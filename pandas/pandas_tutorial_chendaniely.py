@@ -20,10 +20,10 @@ print(country_df.head())
 
 print(df[['country', 'continent', 'year']].head())
 
-# 删除变量
+# 删除变量01
 del df['country']
 print(df.head())
-# 删除变量
+# 删除变量02
 df = df.drop('continent', axis = 1)
 print('---------------------------------')
 print(df.head())
@@ -54,7 +54,6 @@ print(df.loc[df['lifeExp'] >= le_mean, :].shape)
 # group by ===============================================
 
 # mean
-
 # group by one column and summarise one column
 df.groupby('year')
 print(df.groupby('year')['lifeExp'].mean())
@@ -66,9 +65,7 @@ print(df.groupby(['year', 'continent'])['lifeExp', 'gdpPercap'].mean())
 print((df.groupby(['year', 'continent'])['lifeExp', 'gdpPercap'].mean()).reset_index())
 
 # nunique
-
 print(df.groupby('continent')['country'].nunique())
-
 
 # plot
 gyle = df.groupby('year')['lifeExp'].mean()
