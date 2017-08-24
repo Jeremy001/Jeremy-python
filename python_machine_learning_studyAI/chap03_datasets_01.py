@@ -12,13 +12,12 @@
 # 5.从mldata在线下载获取数据集
 #     sklearn.datasets.fetch_mldata(...)
 
-
 # 1.自带的小型数据集（较小）====================================
 #     sklearn.datasets.load_<name>
-
 from sklearn.datasets import load_iris
 iris = load_iris()
 # 自带的数据集是Bunch类型，类似字典
+print(type(iris))
 # 打印iris键值对的键
 print(iris.keys())
 # 打印iris的目标变量的值
