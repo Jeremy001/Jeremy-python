@@ -4,7 +4,7 @@
 
 import pandas as pd
 
-df = pd.read_csv('../scipy-2017-tutorial-pandas/data/gapminder.tsv',
+df = pd.read_csv('../../scipy-2017-tutorial-pandas/data/gapminder.tsv',
                  delimiter = '\t')
 print(df.head())
 print(type(df))
@@ -30,7 +30,7 @@ print(df.head())
 
 
 # select columns and samples 01 ==============================
-df = pd.read_csv('../scipy-2017-tutorial-pandas/data/gapminder.tsv',
+df = pd.read_csv('../../scipy-2017-tutorial-pandas/data/gapminder.tsv',
                  delimiter = '\t')
 print(df.loc[0])
 print(df.head())
@@ -71,8 +71,54 @@ print(df.groupby('continent')['country'].nunique())
 gyle = df.groupby('year')['lifeExp'].mean()
 import matplotlib.pyplot as plt
 gyle.plot()
-plt.show()
+# plt.show()
 
 df2 = gyle.reset_index()
 print(df2.head())
 df2.to_csv('./lifeExp_by_year.csv', index = False)
+
+
+# merge union join ===============================================
+df1 = pd.read_csv('../../scipy-2017-tutorial-pandas/data/concat_1.csv')
+df2 = pd.read_csv('../../scipy-2017-tutorial-pandas/data/concat_2.csv')
+df3 = pd.read_csv('../../scipy-2017-tutorial-pandas/data/concat_3.csv')
+print('df1 ------------------------------------------')
+print(df1)
+print('df2 ------------------------------------------')
+print(df2)
+print('df3 ------------------------------------------')
+print(df3)
+
+row_concat = pd.concat([df1, df2, df3])
+print('row_concat ------------------------------')
+print(row_concat)
+print(row_concat.loc[0])
+print(row_concat.iloc[0])
+
+new_row1 = pd.Series(['n1', 'n2', 'n3', 'n4'])
+new_row2 = pd.Series(['n5', 'n6', 'n7', 'n8'])
+print(new_row1)
+print(new_row2)
+print(pd.concat([df1, new_row1]))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
