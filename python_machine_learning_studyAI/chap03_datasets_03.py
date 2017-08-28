@@ -75,7 +75,15 @@ print(vectors.shape)
 
 
 # 可以直接用fetch_20newsgroups_vectorized来提取已经向量化的新闻文本数据集
+from sklearn.datasets import fetch_20newsgroups_vectorized
+newsgroups_train = fetch_20newsgroups_vectorized()
+print(newsgroups_train.keys())
 
+
+
+
+
+# 野外人脸数据集 fetch_lfw_people and fetch_lfw_pairs
 
 
 
